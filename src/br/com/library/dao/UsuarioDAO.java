@@ -18,19 +18,18 @@ import br.com.library.impl.persistence.dao.GeradorStringSql;
 public class UsuarioDAO extends AbstractDAO {
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
+		
 		List<EntidadeDominio> listaUsuarios = new ArrayList<EntidadeDominio>();
-		String sql = "SELECT * FROM usuario WHERE login_usuario =? and senha_usuario=?";
+		String sql = tipoConsulta(entidade);
+		
 		Usuario user = (Usuario) entidade;
 		int contador =0;
 		try {
 			conexao = conectarBD();
-			PreparedStatement comando = conexao.prepareStatement(sql);
-			comando.setString(1, user.getNomeUsuario());
-			comando.setString(2, user.getSenha());
-
-			ResultSet resultado = comando.executeQuery();
 			
-			if(resultado.next()) {
+			ResultSet resultado = preparar(user,sql);
+			
+			while(resultado.next()) {
 				Usuario usuario = new Usuario();
 				usuario.setNomeUsuario(resultado.getString("login_usuario"));
 				usuario.setSenha(resultado.getString("senha_usuario"));
@@ -49,9 +48,31 @@ public class UsuarioDAO extends AbstractDAO {
 			return null;
 		}
 		
-		
+	}
+	private String tipoConsulta(EntidadeDominio entidade) {
+		String consultas = entidade.getTipoConsulta();
+		if(consultas.equals("login")) {
+			return "SELECT * FROM usuario WHERE login_usuario =? and senha_usuario=?";
+		} else if (consultas.equals("id")) {
+			return "SELECT * FROM usuario WHERE id_cliente=?";
+		} 
+			return null;	
 		
 	}
+	private ResultSet preparar(Usuario user, String sql) throws SQLException {
+		String consultas = user.getTipoConsulta();
+		PreparedStatement comando = conexao.prepareStatement(sql);
+		if(consultas.equals("login")) {
+			comando.setString(1, user.getNomeUsuario());
+			comando.setString(2, user.getSenha());
+			
+			
+		} else if(consultas.equals("id")) {
+			comando.setInt(1, user.getId());
+		}
+		return comando.executeQuery();
+	}
+	
 	@Override
 	public String salvar(EntidadeDominio entidade) {
 		Cliente cliente = (Cliente)entidade;

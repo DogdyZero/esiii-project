@@ -5,9 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.com.library.dao.CartaoCreditoDAO;
 import br.com.library.dao.ClienteDAO;
+import br.com.library.dao.EnderecoDAO;
 import br.com.library.dao.UsuarioDAO;
+import br.com.library.domain.CartaoCredito;
 import br.com.library.domain.Cliente;
+import br.com.library.domain.Endereco;
 import br.com.library.domain.EntidadeDominio;
 import br.com.library.domain.Result;
 import br.com.library.domain.Usuario;
@@ -41,21 +45,34 @@ public class Facede implements IFacede{
 		rnsCliente.put("SALVAR", rnSalvarCliente);
 		
 		
-		
+		/*
+		 * Regras de negócios para Consulta
+		 */
 		
 		List<IStrategy> rnConsultarUsuario = new ArrayList<IStrategy>();
 				
 		Map<String,List<IStrategy>> rnsUsuario = new HashMap<String,List<IStrategy>>();
 		rnsUsuario.put("CONSULTAR",rnConsultarUsuario);
 		
-		/*
-		 * adicionando ao mapa de regras de negócios
-		 */
+		
+		List<IStrategy> rnConsultarEndereco = new ArrayList<IStrategy>();
+		Map<String,List<IStrategy>> rnsEndereco = new HashMap<String,List<IStrategy>>();
+		rnsEndereco.put("CONSULTAR",rnConsultarEndereco);
+		
+		List<IStrategy> rnConsultarCartao = new ArrayList<IStrategy>();
+		Map<String,List<IStrategy>> rnsCartao = new HashMap<String,List<IStrategy>>();
+		rnsCartao.put("CONSULTAR",rnConsultarCartao);
+	
+		
 		rns.put(Cliente.class.getName(),rnsCliente);
 		rns.put(Usuario.class.getName(),rnsUsuario);
-		
+		rns.put(Endereco.class.getName(),rnsEndereco);
+		rns.put(CartaoCredito.class.getName(), rnsCartao);
+			
 		daos.put(Cliente.class.getName(), new ClienteDAO());
 		daos.put(Usuario.class.getName(), new UsuarioDAO());
+		daos.put(Endereco.class.getName(), new EnderecoDAO());
+		daos.put(CartaoCredito.class.getName(), new CartaoCreditoDAO());
 	}
 
 	@Override
@@ -116,7 +133,10 @@ public class Facede implements IFacede{
 			if (lista == null) {
 				resultado.setMsg("Sem retorno");
 			} else {
-				resultado.addEntidades(lista.get(0));
+				for (int i = 0 ; i<lista.size();i++) {
+					resultado.addEntidades(lista.get(i));
+				}
+				
 			}
 
 		}

@@ -1,6 +1,8 @@
 package br.com.library.impl.vh;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,14 +27,17 @@ public class ConsultaVH implements IViewHelper {
 			return cliente;
 		} else if (tipoConsulta.equals("cartao_credito")) {
 			CartaoCredito cartao = new CartaoCredito();
+			cartao.setTipoConsulta("id");
 			cartao.setId(Integer.parseInt(request.getParameter("id")));
 			return cartao;
 		}else if (tipoConsulta.equals("endereco")) {
 			Endereco endereco = new Endereco();
+			endereco.setTipoConsulta("id");
 			endereco.setId(Integer.parseInt(request.getParameter("id")));
 			return endereco;
 		} else if (tipoConsulta.equals("dados_usuario")) {
 			Usuario usuario = new Usuario();
+			usuario.setTipoConsulta("id");
 			usuario.setId(Integer.parseInt(request.getParameter("id")));
 			return usuario;
 		}
@@ -43,8 +48,18 @@ public class ConsultaVH implements IViewHelper {
 	public void setView(Result resultado, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
 		if(resultado.getMsg()== null) {
-			EntidadeDominio entidade =  resultado.getEntidades().get(0);
-			request.setAttribute("lista", entidade );
+			if(resultado.getEntidades().size()==1) {
+				EntidadeDominio entidade =  resultado.getEntidades().get(0);
+				request.setAttribute("resultado", entidade );
+			} else {
+				List<EntidadeDominio> entidade = new ArrayList<EntidadeDominio>();
+				for (int i = 0; i<resultado.getEntidades().size();i++) {
+					entidade.add(resultado.getEntidades().get(i));
+				}
+				request.setAttribute("listagem", entidade );
+			}
+			
+			
 			try {
 				request.getRequestDispatcher("/consulta.jsp").forward(request, response);
 			} catch (ServletException e) {

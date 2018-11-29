@@ -20,8 +20,11 @@ public class UsuarioVH implements IViewHelper {
 	@Override
 	public EntidadeDominio getEntidade(HttpServletRequest request) {
 		Usuario usuario = new Usuario();
+		
 		usuario.setNomeUsuario(request.getParameter("txtLogin"));
 		usuario.setSenha(request.getParameter("txtSenha"));
+		
+		usuario.setTipoConsulta("login");
 		return usuario;
 	}
 
