@@ -33,7 +33,10 @@ public class UsuarioDAO extends AbstractDAO {
 				Usuario usuario = new Usuario();
 				usuario.setNomeUsuario(resultado.getString("login_usuario"));
 				usuario.setSenha(resultado.getString("senha_usuario"));
-				usuario.setId(Integer.parseInt(resultado.getString("id_cliente")));
+				if(sql.equals("SELECT * FROM usuario WHERE id_cliente=?")) {
+					usuario.setId(resultado.getInt("id"));
+				}
+				usuario.setId(resultado.getInt("id_cliente"));
 				listaUsuarios.add(usuario);
 				contador++;
 			}

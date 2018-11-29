@@ -17,6 +17,7 @@ import br.com.library.impl.command.ConsultarCommand;
 import br.com.library.impl.command.ICommand;
 import br.com.library.impl.command.SalvarCommand;
 import br.com.library.impl.vh.ConsultaVH;
+import br.com.library.impl.vh.PrepararUpdateVH;
 import br.com.library.impl.vh.ClienteVH;
 import br.com.library.impl.vh.UsuarioVH;
 
@@ -38,6 +39,7 @@ public class Control extends HttpServlet {
 		vhs.put("/library/salvar-cliente", new ClienteVH());
 		vhs.put("/library/servicoConsultarLogin", new UsuarioVH());
 		vhs.put("/library/consultarDados", new ConsultaVH());
+		vhs.put("/library/alterarDados", new PrepararUpdateVH());
 	}
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String operacao = request.getParameter("OPERACAO");

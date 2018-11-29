@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +15,10 @@ import br.com.library.domain.EntidadeDominio;
 import br.com.library.domain.Estado;
 import br.com.library.domain.Pais;
 import br.com.library.domain.TipoDaResidencia;
-import br.com.library.domain.Usuario;
-import br.com.library.dto.ClienteDTO;
 import br.com.library.dto.EnderecoDTO;
 import br.com.library.impl.persistence.dao.AbstractDAO;
 import br.com.library.impl.persistence.dao.Coluna;
 import br.com.library.impl.persistence.dao.GeradorStringSql;
-import br.com.library.impl.persistence.dao.Tabela;
 
 public class EnderecoDAO extends AbstractDAO{
 	
@@ -65,7 +61,7 @@ public class EnderecoDAO extends AbstractDAO{
 				
 				end.setBairro(bairro);
 				
-				end.setId(Integer.parseInt(resultado.getString("id_cliente")));
+				end.setId(Integer.parseInt(resultado.getString("id_endereco")));
 				listaEndereco.add(end);
 				contador++;
 			}
@@ -85,14 +81,17 @@ public class EnderecoDAO extends AbstractDAO{
 		String consultas = entidade.getTipoConsulta();
 		if (consultas.equals("id")) {
 			return "SELECT * FROM endereco WHERE id_cliente=?";
-		} 
+		} else if(consultas.equals("id_endereco")) {
+			return "SELECT * FROM endereco WHERE id_endereco=?";
+		}
+		
 			return null;	
 		
 	}
 	private ResultSet preparar(Endereco end, String sql) throws SQLException {
 		String consultas = end.getTipoConsulta();
 		PreparedStatement comando = conexao.prepareStatement(sql);
-		if(consultas.equals("id")) {
+		if(consultas.equals("id") || consultas.equals("id_endereco")) {
 			comando.setInt(1, end.getId());
 		}
 		return comando.executeQuery();

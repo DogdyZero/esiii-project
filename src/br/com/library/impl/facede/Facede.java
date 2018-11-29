@@ -15,6 +15,7 @@ import br.com.library.domain.Endereco;
 import br.com.library.domain.EntidadeDominio;
 import br.com.library.domain.Result;
 import br.com.library.domain.Usuario;
+import br.com.library.dto.EnderecoDTO;
 import br.com.library.impl.persistence.dao.IDAO;
 import br.com.library.impl.strategy.IStrategy;
 import br.com.library.impl.strategy.ValidarCliente;
@@ -63,15 +64,21 @@ public class Facede implements IFacede{
 		Map<String,List<IStrategy>> rnsCartao = new HashMap<String,List<IStrategy>>();
 		rnsCartao.put("CONSULTAR",rnConsultarCartao);
 	
+	
+		List<IStrategy> rnAlterarEndereco = new ArrayList<IStrategy>();
+		rnsEndereco.put("ALTERAR",rnAlterarEndereco);
 		
+				
 		rns.put(Cliente.class.getName(),rnsCliente);
 		rns.put(Usuario.class.getName(),rnsUsuario);
 		rns.put(Endereco.class.getName(),rnsEndereco);
+		rns.put(EnderecoDTO.class.getName(),rnsEndereco);
 		rns.put(CartaoCredito.class.getName(), rnsCartao);
 			
 		daos.put(Cliente.class.getName(), new ClienteDAO());
 		daos.put(Usuario.class.getName(), new UsuarioDAO());
 		daos.put(Endereco.class.getName(), new EnderecoDAO());
+		daos.put(EnderecoDTO.class.getName(), new EnderecoDAO());
 		daos.put(CartaoCredito.class.getName(), new CartaoCreditoDAO());
 	}
 
@@ -104,8 +111,31 @@ public class Facede implements IFacede{
 
 	@Override
 	public Result alterar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		resultado = new Result();
+		String classe = entidade.getClass().getName();
+		
+		Map<String,List<IStrategy>> rn = rns.get(classe);
+		
+		String msg = null;
+		
+		if(rn.get("ALTERAR")!=null) {
+			List<IStrategy> regras = rn.get("ALTERAR");
+				
+			for (IStrategy strategies :regras) {
+				msg= strategies.processar(entidade);
+			}
+		}	
+		
+		
+		if (msg !=null) {
+			resultado.setMsg(msg);
+		} else {
+			daos.get(classe).alterar(entidade);
+
+		}
+		resultado.addEntidades(entidade);
+
+		return resultado;
 	}
 
 	@Override

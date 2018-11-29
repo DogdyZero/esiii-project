@@ -56,7 +56,10 @@ public class GeradorStringSql {
 					for (Field atributos :f) {
 						if(atributos.getDeclaredAnnotation(Coluna.class)!=null ) {
 							String nomeColuna = atributos.getDeclaredAnnotation(Coluna.class).value();
-							sbParte1.append(nomeColuna+"=?,") ;		
+							if(!nomeColuna.contains("id_")) {
+								sbParte1.append(nomeColuna+"=?,") ;	
+							}
+								
 						}
 					}
 					sbParte1 = sbParte1.delete(sbParte1.toString().length()-1, sbParte1.toString().length());

@@ -27,4 +27,8 @@
     <servlet-name>control</servlet-name>
     <url-pattern>/consultarDados</url-pattern>
   </servlet-mapping>
+     <servlet-mapping>
+      <servlet-name>control</servlet-name>
+      <url-pattern>/alterarDados</url-pattern>
+  </servlet-mapping>
 </web-app>

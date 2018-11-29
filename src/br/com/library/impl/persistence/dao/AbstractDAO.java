@@ -51,16 +51,20 @@ public abstract class AbstractDAO implements IDAO {
 		try {
 			Class<?> classe = Class.forName(entidade.getClass().getName());
 			Field[] f = classe.getDeclaredFields();
+			conexao = conectarBD();
 			
 			PreparedStatement comando = conexao.prepareStatement(sql);
 			int i =1;
 			for (Field atributos:f) {
 				if(atributos.getDeclaredAnnotation(Coluna.class)!=null ) {
-					atributos.setAccessible(true);
-					comando.setObject(i, atributos.get(entidade));
-					i++;
+					String nomeColuna = atributos.getDeclaredAnnotation(Coluna.class).value();
+					if(!nomeColuna.equals("id_cliente")) {
+						atributos.setAccessible(true);
+						comando.setObject(i, atributos.get(entidade));
+						i++;
+					}
+
 				}
-				comando.setObject(i,entidade.getId());
 			}		
 			comando.execute();
 		 

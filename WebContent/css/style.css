@@ -81,6 +81,13 @@
 .w-10{
   width:10%;
 }
+
+.w-30px{
+  width:30px;	
+}
+.w-5{
+  width:5%;
+}
 .content-b{
   border:1px solid black;
   padding:0.5%;
@@ -88,6 +95,9 @@
 }
 input{display:block;}
 
+.id_coluna{
+  display:none;
+}
 .row{
   display:flex;
   flex-direction: row;

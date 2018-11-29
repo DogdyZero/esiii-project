@@ -48,7 +48,7 @@ public class CartaoCreditoDAO extends AbstractDAO {
 				cc.setNomeNoCartao(resultado.getString("nome_cartao"));
 				cc.setNumeroCartao(resultado.getString("numero_cartao"));
 				cc.setCodigoSeguranca(resultado.getInt("codigo_seguranca"));
-				cc.setId(resultado.getInt("id_cliente"));
+				cc.setId(resultado.getInt("id_cartao_credito"));
 				
 				listaCartoes.add(cc);
 				contador++;
