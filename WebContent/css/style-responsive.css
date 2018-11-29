@@ -1,0 +1,34 @@
+@media screen and (max-width: 700px) {
+  .dropdown {
+    width: 100%;
+    height: auto;
+  }
+  
+  .dropdown a {float: left;}
+  div.content {margin-left: 0;}
+  .row {display:block;}
+  .w-50{width:100%;}
+  .m-width-360{
+	width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+	overflow:hidden;
+}
+
+@media screen and (max-width: 400px) {
+  .dropdown a {
+    text-align: center;
+    float: none;
+  }
+  
+  .w-50{width:100%;}
+  .m-width-360{
+	width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+	
+}
+}
+.textbox{width:80%;}

@@ -1,0 +1,48 @@
+﻿<!doctype html >
+<html>
+  <head>
+  <title>Library Sales - Login</title>
+  
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="css/style.css"> 
+	<link rel="stylesheet" type="text/css" href="../css/responsivo/style.css">
+  </head>
+ <body>
+  
+          <div class="cabecalho ">
+		  
+            <a href=#><img class="cabecalho-botoes carrinho" src="imagens/cart_icon-01.png"/></a>
+			<a href="login.html"><img class="cabecalho-botoes login" src="imagens/login.png"/></a>
+          </div>
+       
+	
+	<div id="area-login" align="center">
+		
+		<h1>Library Sales Login</h1><br>
+		<form id="formulario" action="servicoConsultarLogin" method="POST">
+			<input type="text" name="txtLogin" class="textbox w-30" placeholder="Digite o seu e-mail" required autofocus><br>
+
+			<input type="password" name="txtSenha" class="textbox w-30" placeholder="Digite a sua senha" required autofocus><br><br>
+			
+			<input type="submit" class="botao-login w-10"  value="CONSULTAR" name="OPERACAO"><br><br>
+			
+
+			<p><a href="cadastro.jsp">Não possui cadastro?</a></p>
+		</form>
+	</div>
+          
+       
+    <div class="row">
+			<div class="content w-100 rodape ">
+				<div class="rodape">
+					<p>Página Beta para implementação da matéria ESIII</p>
+				</div>
+			</div>
+    </div>
+    
+
+   
+        
+  </body>
+</html>
