@@ -30,7 +30,9 @@
 .sidenav a:hover {
     color: #064579;
 }
-
+th,tr,td{
+	background-color: #EEE9E9	;
+}
 .content{
   margin: 0 5px;
 }
@@ -95,9 +97,7 @@
 }
 input{display:block;}
 
-.id_coluna{
-  display:none;
-}
+
 .row{
   display:flex;
   flex-direction: row;
@@ -151,7 +151,7 @@ input{display:block;}
 .m-2{
   margin:20px 50px 0 10px;
 }
-#tbl_endereco,#tbl_cartao{
+#tbl_endereco,#tbl_cartao, .id_coluna{
   display:none;
 }
 input{display:block;}

@@ -188,7 +188,6 @@ public class Facede implements IFacede{
 
 		}
 		
-		
 		return resultado;
 	}
 

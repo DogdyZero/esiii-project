@@ -2,65 +2,43 @@ CREATE TABLE public.cartao_credito
 (
   id_cartao_credito integer NOT NULL DEFAULT nextval('cartao_credito_id_cartao_credito_seq'::regclass),
   bandeira character varying(30),
-  nome_cartao character varying(50),
+  nome_cartao character varying(30),
   numero_cartao character varying(30),
-  codigo_seguranca numeric(5,0),
-  id_cliente numeric(5,0)
+  codigo_seguranca numeric(8,0),
+  id_cliente numeric(8,0),
+  CONSTRAINT cartao_credito_pkey PRIMARY KEY (id_cartao_credito)
 )
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.cartao_credito
-  OWNER TO postgres;
-
 
 CREATE TABLE public.cliente
 (
-  cpf character varying(20),
-  nome character varying(50),
   id_cliente integer NOT NULL DEFAULT nextval('cliente_id_cliente_seq'::regclass),
+  nome character varying(50),
+  cpf character varying(20),
   data_nascimento date,
-  genero character varying(20),
-  email character varying(30),
-  telefone character varying(20)
+  genero character varying(15),
+  email character varying(20),
+  telefone character varying(15),
+  CONSTRAINT cliente_pkey PRIMARY KEY (id_cliente)
 )
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.cliente
-  OWNER TO postgres;
-
-
-
 CREATE TABLE public.endereco
 (
   id_endereco integer NOT NULL DEFAULT nextval('endereco_id_endereco_seq'::regclass),
-  tipo_logradouro character varying(10),
   logradouro character varying(50),
-  numero numeric(5,0),
-  bairro character varying(20),
+  numero numeric(8,0),
+  cep character varying(15),
+  bairro character varying(30),
+  tipo_logradouro character varying(20),
   cidade character varying(30),
-  estado character varying(10),
+  estado character varying(30),
   pais character varying(20),
-  cep character varying(10),
-  id_cliente numeric(5,0)
+  id_cliente numeric(8,0),
+  CONSTRAINT endereco_pkey PRIMARY KEY (id_endereco)
 )
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.endereco
-  OWNER TO postgres;
-
-
 CREATE TABLE public.usuario
 (
-  id integer NOT NULL DEFAULT nextval('usuario_id_seq'::regclass),
-  login_usuario character varying(20),
-  senha_usuario character varying(20),
-  id_cliente numeric(5,0)
+  id_usuario integer NOT NULL DEFAULT nextval('usuario_id_usuario_seq'::regclass),
+  login_usuario character varying(30),
+  senha_usuario character varying(30),
+  id_cliente numeric(8,0),
+  CONSTRAINT usuario_pkey PRIMARY KEY (id_usuario)
 )
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.usuario
-  OWNER TO "Douglas";

@@ -16,12 +16,15 @@ public class GeradorStringSql {
 			StringBuilder sbParte1 = new StringBuilder();
 			StringBuilder sbParte2 = new StringBuilder();
 			sbParte1.append("INSERT INTO "+ nomeTabela + "(");
-			
+			String idTabela = "id_"+nomeTabela;
 			for (Field atributos :f) {
 				if(atributos.getDeclaredAnnotation(Coluna.class)!=null ) {
-					String nomeColuna = atributos.getDeclaredAnnotation(Coluna.class).value();
-					sbParte1.append(nomeColuna+",") ;	
-					sbParte2.append("?,");
+					if(!atributos.getDeclaredAnnotation(Coluna.class).value().equals(idTabela)) {
+						String nomeColuna = atributos.getDeclaredAnnotation(Coluna.class).value();
+						sbParte1.append(nomeColuna+",") ;	
+						sbParte2.append("?,");
+					}
+
 				}
 				
 			}

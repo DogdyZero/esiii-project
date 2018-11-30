@@ -22,6 +22,7 @@ import br.com.library.dto.EnderecoDTO;
 import br.com.library.impl.persistence.dao.AbstractDAO;
 import br.com.library.impl.persistence.dao.Coluna;
 import br.com.library.impl.persistence.dao.GeradorStringSql;
+import br.com.library.impl.persistence.dao.Tabela;
 
 public class CartaoCreditoDAO extends AbstractDAO {
 	
@@ -104,6 +105,8 @@ public class CartaoCreditoDAO extends AbstractDAO {
 			}
 			Class<?> classe = Class.forName(cartaoDTO.getClass().getName());
 			Field[] f = classe.getDeclaredFields();
+			String nomeTabela =classe.getDeclaredAnnotation(Tabela.class).value();
+			String idTabela = "id_"+nomeTabela;
 						
 			for(CartaoDTO cartoes :listaCartoesDTO) {
 				PreparedStatement comando = conexao.prepareStatement(sql);
@@ -111,9 +114,11 @@ public class CartaoCreditoDAO extends AbstractDAO {
 				int i =1;
 				for (Field atributos:f) {
 					if(atributos.getDeclaredAnnotation(Coluna.class)!=null ) {
-						atributos.setAccessible(true);
-						comando.setObject(i, atributos.get(cartoes));
-						i++;
+						if(!atributos.getDeclaredAnnotation(Coluna.class).value().equals(idTabela)) {
+							atributos.setAccessible(true);
+							comando.setObject(i, atributos.get(cartoes));
+							i++;
+						}
 					}			
 				}		
 				

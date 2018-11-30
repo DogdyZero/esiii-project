@@ -14,6 +14,7 @@ import br.com.library.dto.UsuarioDTO;
 import br.com.library.impl.persistence.dao.AbstractDAO;
 import br.com.library.impl.persistence.dao.Coluna;
 import br.com.library.impl.persistence.dao.GeradorStringSql;
+import br.com.library.impl.persistence.dao.Tabela;
 
 public class UsuarioDAO extends AbstractDAO {
 	@Override
@@ -33,10 +34,12 @@ public class UsuarioDAO extends AbstractDAO {
 				Usuario usuario = new Usuario();
 				usuario.setNomeUsuario(resultado.getString("login_usuario"));
 				usuario.setSenha(resultado.getString("senha_usuario"));
-				if(sql.equals("SELECT * FROM usuario WHERE id_cliente=?")) {
+				if(sql.equals("SELECT * FROM usuario WHERE id_cliente=?")|| 
+						sql.equals("SELECT * FROM usuario WHERE login_usuario =? and senha_usuario=?")) {
 					usuario.setId(resultado.getInt("id_cliente"));
+				} else {
+					usuario.setId(resultado.getInt("id_usuario"));
 				}
-				usuario.setId(resultado.getInt("id_usuario"));
 				listaUsuarios.add(usuario);
 				contador++;
 			}
@@ -95,15 +98,19 @@ public class UsuarioDAO extends AbstractDAO {
 			Class<?> classe = Class.forName(usuarioDTO.getClass().getName());
 			Field[] f = classe.getDeclaredFields();
 						
+			String nomeTabela =classe.getDeclaredAnnotation(Tabela.class).value();
+			String idTabela = "id_"+nomeTabela;
 			
 			PreparedStatement comando = conexao.prepareStatement(sql);
 
 			int i =1;
 			for (Field atributos:f) {
 				if(atributos.getDeclaredAnnotation(Coluna.class)!=null ) {
-					atributos.setAccessible(true);
-					comando.setObject(i, atributos.get(usuarioDTO));
-					i++;
+					if(!atributos.getDeclaredAnnotation(Coluna.class).value().equals(idTabela)) {
+						atributos.setAccessible(true);
+						comando.setObject(i, atributos.get(usuarioDTO));
+						i++;
+					}
 				}	
 			}
 							

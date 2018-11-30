@@ -5,12 +5,12 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.library.domain.CartaoCredito;
-import br.com.library.domain.Cliente;
-import br.com.library.domain.Endereco;
 import br.com.library.domain.EntidadeDominio;
 import br.com.library.domain.Result;
-import br.com.library.domain.Usuario;
+import br.com.library.dto.CartaoDTO;
+import br.com.library.dto.ClienteDTO;
+import br.com.library.dto.EnderecoDTO;
+import br.com.library.dto.UsuarioDTO;
 import br.com.library.web.control.IViewHelper;
 
 public class ExcluirVH implements IViewHelper {
@@ -21,21 +21,21 @@ public class ExcluirVH implements IViewHelper {
 		int id = Integer.parseInt(request.getParameter("id"));
 		if(operacao.equals("APAGAR")) {
 			if(request.getParameter("tipo").equals("endereco")) {
-				Endereco  endereco = new Endereco();
+				EnderecoDTO  endereco = new EnderecoDTO();
 				endereco.setId(id);
 				return endereco;
 			}else if(request.getParameter("tipo").equals("cliente")) {
-				Cliente  cliente = new Cliente();
+				ClienteDTO  cliente = new ClienteDTO();
 				cliente.setId(id);
 				return cliente;
 			} else if (request.getParameter("tipo").equals("cartao")) {
 				
-				CartaoCredito  cartao = new CartaoCredito();
+				CartaoDTO  cartao = new CartaoDTO();
 				cartao.setId(id);
 				return cartao;
 			} else if(request.getParameter("tipo").equals("usuario")) {
 				
-				Usuario  usuario = new Usuario();
+				UsuarioDTO  usuario = new UsuarioDTO();
 				usuario.setId(id);
 				return usuario;
 			}

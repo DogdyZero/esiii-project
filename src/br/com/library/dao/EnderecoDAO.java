@@ -19,6 +19,7 @@ import br.com.library.dto.EnderecoDTO;
 import br.com.library.impl.persistence.dao.AbstractDAO;
 import br.com.library.impl.persistence.dao.Coluna;
 import br.com.library.impl.persistence.dao.GeradorStringSql;
+import br.com.library.impl.persistence.dao.Tabela;
 
 public class EnderecoDAO extends AbstractDAO{
 	
@@ -116,16 +117,19 @@ public class EnderecoDAO extends AbstractDAO{
 			}
 			Class<?> classe = Class.forName(enderecoDTO.getClass().getName());
 			Field[] f = classe.getDeclaredFields();
-						
+			String nomeTabela =classe.getDeclaredAnnotation(Tabela.class).value();
+			String idTabela = "id_"+nomeTabela;
 			for(EnderecoDTO enderecos :listaEnderecosDTO) {
 				PreparedStatement comando = conexao.prepareStatement(sql);
 
 				int i =1;
 				for (Field atributos:f) {
 					if(atributos.getDeclaredAnnotation(Coluna.class)!=null ) {
+						if(!atributos.getDeclaredAnnotation(Coluna.class).value().equals(idTabela)) {
 						atributos.setAccessible(true);
 						comando.setObject(i, atributos.get(enderecos));
 						i++;
+						}
 					}			
 				}		
 				

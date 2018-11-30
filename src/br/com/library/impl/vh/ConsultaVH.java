@@ -65,6 +65,9 @@ public class ConsultaVH implements IViewHelper {
 			} catch (ServletException e) {
 				e.printStackTrace();
 			}
+		} else {
+			response.sendRedirect(request.getContextPath() + "/erro.html");
+
 		}
 	
 	}

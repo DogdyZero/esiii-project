@@ -101,17 +101,15 @@
         		  if(requisicao.equals("dados_cadastrais")){  
         		  Cliente cliente = (Cliente) request.getAttribute("resultado");
         		  %>
-        		  <tr>
-        		  	<th class="w-5">Nome</th>
-        		  	<th class="w-5">CPF</th>
-        		  	<th class="w-5">Nascimento</th>
-        		  	<th class="w-5">Genero</th>
-        		  	<th class="w-5">Telefone</th>
-        		  	<th class="w-5">E-mail</th>
-        		  	<th class="w-5"></th>
-					<th class="w-5"></th>
+        		  <tr class=w-100>
+        		  	<th>Nome</th>
+        		  	<th>CPF</th>
+        		  	<th>Nascimento</th>
+        		  	<th>Genero</th>
+        		  	<th>Telefone</th>
+        		  	<th>E-mail</th>
         		  </tr>
-        		  <tr>
+        		  <tr class=w-100>
         		  <td><%=cliente.getNome() %></td>
         		  <td><%=cliente.getCpf() %></td>
         		  <td><%=cliente.getDataNascimento() %></td>
@@ -124,17 +122,15 @@
         		  </tr>
         		  <%
         		  } else if (requisicao.equals("endereco")) { %>
-        		     <tr>
-        		  		<th class="w-5">Tipo</th>
-						<th class="w-20">Logradouro</th>
-						<th class="w-5">Número</th>
-						<th class="w-5">CEP</th>
-						<th class="w-10">Bairro</th>
-						<th class="w-10">Cidade</th>
-						<th class="w-5">Estado</th>
-						<th class="w-5">Pais</th>
-						<th class="w-5"></th>
-						<th class="w-5"></th>
+        		     <tr class=w-100>
+        		  		<th >Tipo</th>
+						<th>Logradouro</th>
+						<th>Número</th>
+						<th>CEP</th>
+						<th>Bairro</th>
+						<th>Cidade</th>
+						<th>Estado</th>
+						<th>Pais</th>
         		 	</tr>
         		  <%
 					  if(request.getAttribute("listagem") !=null) {
@@ -142,16 +138,16 @@
 
         		  	<% for(Endereco end :listaEnderecos){%>
         		  	
-        		  	<tr>
+        		  	<tr class=w-100>
         		  	
-	        		  	<td><input class="w-97" value="<%=end.getTipoDaResidencia().getTipo()%>"></td>
-	        			<td><input class="w-97" value="<%=end.getLogradouro() %>"></td>
-	        			<td><input class="w-97" value="<%=end.getNumeroResidencia()%>"></td>
-	        			<td><input class="w-97" value="<%=end.getCep() %>"></td>
-	        			<td><input class="w-97" value="<%=end.getBairro().getNomeBairro() %>"></td>
-	        			<td><input class="w-97" value="<%=end.getBairro().getCidade().getNomeCidade() %>"></td>
-	        			<td><input class="w-97" value="<%=end.getBairro().getCidade().getEstado().getNomeEstado() %>"></td>
-	        			<td><input class="w-97" value="<%=end.getBairro().getCidade().getEstado().getPais().getNomePais() %>"></td>
+	        		  	<td><%=end.getTipoDaResidencia().getTipo()%></td>
+	        			<td><%=end.getLogradouro() %></td>
+	        			<td><%=end.getNumeroResidencia()%></td>
+	        			<td><%=end.getCep() %></td>
+	        			<td><%=end.getBairro().getNomeBairro() %></td>
+	        			<td><%=end.getBairro().getCidade().getNomeCidade() %></td>
+	        			<td><%=end.getBairro().getCidade().getEstado().getNomeEstado() %></td>
+	        			<td><%=end.getBairro().getCidade().getEstado().getPais().getNomePais() %></td>
 	        			<td><a href="alterarDados?OPERACAO=CONSULTAR&tipo=endereco&id=<%=end.getId() %>"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
         		  		<td><a href="excluirDados?OPERACAO=APAGAR&tipo=endereco&id=<%=end.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>   
 	        			</tr>
@@ -162,15 +158,15 @@
         		  	 if (request.getAttribute("resultado") !=null){
         			  Endereco end = (Endereco) request.getAttribute("resultado");%>
 
-        			<tr>
-	        		  	<td><input class="w-97" value="<%=end.getTipoDaResidencia().getTipo()%>"></td>
-	        			<td><input class="w-97" value="<%=end.getLogradouro() %>"></td>
-	        			<td><input class="w-97" value="<%=end.getNumeroResidencia()%>"></td>
-	        			<td><input class="w-97" value="<%=end.getCep() %>"></td>
-	        			<td><input class="w-97" value="<%=end.getBairro().getNomeBairro() %>"></td>
-	        			<td><input class="w-97" value="<%=end.getBairro().getCidade().getNomeCidade() %>"></td>
-	        			<td><input class="w-97" value="<%=end.getBairro().getCidade().getEstado().getNomeEstado() %>"></td>
-	        			<td><input class="w-97" value="<%=end.getBairro().getCidade().getEstado().getPais().getNomePais() %>"></td>
+        			<tr class=w-100>
+		  				<td><%=end.getTipoDaResidencia().getTipo()%></td>
+	        			<td><%=end.getLogradouro() %></td>
+	        			<td><%=end.getNumeroResidencia()%></td>
+	        			<td><%=end.getCep() %></td>
+	        			<td><%=end.getBairro().getNomeBairro() %></td>
+	        			<td><%=end.getBairro().getCidade().getNomeCidade() %></td>
+	        			<td><%=end.getBairro().getCidade().getEstado().getNomeEstado() %></td>
+	        			<td><%=end.getBairro().getCidade().getEstado().getPais().getNomePais() %></td>
 	        			<td><a href="alterarDados?OPERACAO=CONSULTAR&tipo=endereco&id=<%=end.getId() %>"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
         		  		<td><a href="excluirDados?OPERACAO=APAGAR&tipo=endereco&id=<%=end.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>   
         			  
@@ -187,7 +183,7 @@
      			  List<CartaoCredito> listaCartoes = (List<CartaoCredito>) request.getAttribute("listagem");%>
 
      		  	<% for(CartaoCredito cart :listaCartoes){%>
-     		  	<tr>
+     		  	<tr class=w-100>
 	        		  	<td><%=cart.getBandeiraCartao().getNomeBandeira()%></td>
 	        		  	<td><%=cart.getNomeNoCartao()%></td>
 	        		  	<td><%=cart.getNumeroCartao()%></td>
@@ -201,7 +197,7 @@
      		  	 if (request.getAttribute("resultado") !=null){
      		  		CartaoCredito cart = (CartaoCredito) request.getAttribute("resultado");%>
 
-     		  	<tr>
+     		  	<tr class=w-100>
 	        		  	<td><%=cart.getBandeiraCartao().getNomeBandeira()%></td>
 	        		  	<td><%=cart.getNomeNoCartao()%></td>
 	        		  	<td><%=cart.getNumeroCartao()%></td>
@@ -218,8 +214,8 @@
         		  	<th>Senha</th>
         		  </tr>
         		  <tr>
-        			<td><%=usuario.getNomeUsuario() %></td>
-        			<td><%=usuario.getSenha() %></td>
+        			<td class="w-5" ><%=usuario.getNomeUsuario() %></td>
+        			<td class="w-5" ><%=usuario.getSenha() %></td>
 		        		<td><a href="alterarDados?OPERACAO=CONSULTAR&tipo=usuario&id=<%=usuario.getId() %>"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
 						<td><a href="excluirDados?OPERACAO=APAGAR&tipo=usuario&id=<%=usuario.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>           			</tr>
         			</tr>
