@@ -108,6 +108,8 @@
         		  	<th class="w-5">Genero</th>
         		  	<th class="w-5">Telefone</th>
         		  	<th class="w-5">E-mail</th>
+        		  	<th class="w-5"></th>
+					<th class="w-5"></th>
         		  </tr>
         		  <tr>
         		  <td><%=cliente.getNome() %></td>
@@ -116,8 +118,8 @@
         		  <td><%=cliente.getGenero().getSexo() %></td>
         		  <td><%=cliente.getTelefone().getTelefone() %></td>
         		  <td><%=cliente.getEmail().getEnderecoEmail() %></td>
-        		  <td><a href="#"><img class="w-5" src="imagens/pen-512.png"/></a></td>   
-        		  <td><a href="#"><img class="w-5" src="imagens/Eraser-icon.png"/></a></td>   
+        		  <td><a href="alterarDados?OPERACAO=CONSULTAR&tipo=cliente&id=<%=cliente.getId() %>"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
+        		  <td><a href="excluirDados?OPERACAO=APAGAR&tipo=cliente&id=<%=cliente.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>   
         		      		  
         		  </tr>
         		  <%
@@ -139,21 +141,21 @@
         			  List<Endereco> listaEnderecos = (List<Endereco>) request.getAttribute("listagem");%>
 
         		  	<% for(Endereco end :listaEnderecos){%>
-        		  	<form action="alterarDados">
+        		  	
         		  	<tr>
-        		  	<form>
-	        		  	<td><input name="tipo" class="w-97" type="text" value="<%=end.getTipoDaResidencia().getTipo()%>"></td>
-	        			<td><input name="logradouro"  class="w-97" type="text" value="<%=end.getLogradouro() %>"></td>
-	        			<td><input name="numero_residencia"  class="w-97" type="text" value="<%=end.getNumeroResidencia()%>"></td>
-	        			<td><input name="cep"  class="w-97" type="text" value="<%=end.getCep() %>"></td>
-	        			<td><input name="bairro"  class="w-97" type="text" value="<%=end.getBairro().getNomeBairro() %>"></td>
-	        			<td><input name="cidade"  class="w-97" type="text" value="<%=end.getBairro().getCidade().getNomeCidade() %>"></td>
-	        			<td><input name="estado"  class="w-97" type="text" value="<%=end.getBairro().getCidade().getEstado().getNomeEstado() %>"></td>
-	        			<td><input id="pais" name="pais"  class="w-97" type="text" value="<%=end.getBairro().getCidade().getEstado().getPais().getNomePais() %>"></td>
+        		  	
+	        		  	<td><input class="w-97" value="<%=end.getTipoDaResidencia().getTipo()%>"></td>
+	        			<td><input class="w-97" value="<%=end.getLogradouro() %>"></td>
+	        			<td><input class="w-97" value="<%=end.getNumeroResidencia()%>"></td>
+	        			<td><input class="w-97" value="<%=end.getCep() %>"></td>
+	        			<td><input class="w-97" value="<%=end.getBairro().getNomeBairro() %>"></td>
+	        			<td><input class="w-97" value="<%=end.getBairro().getCidade().getNomeCidade() %>"></td>
+	        			<td><input class="w-97" value="<%=end.getBairro().getCidade().getEstado().getNomeEstado() %>"></td>
+	        			<td><input class="w-97" value="<%=end.getBairro().getCidade().getEstado().getPais().getNomePais() %>"></td>
 	        			<td><a href="alterarDados?OPERACAO=CONSULTAR&tipo=endereco&id=<%=end.getId() %>"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
-        		  		<td><a href="#"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>   
-        			</tr>
-        			</form>
+        		  		<td><a href="excluirDados?OPERACAO=APAGAR&tipo=endereco&id=<%=end.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>   
+	        			</tr>
+        			
         		  <%
         	 			}
 					  }
@@ -161,17 +163,16 @@
         			  Endereco end = (Endereco) request.getAttribute("resultado");%>
 
         			<tr>
-	        		  	<td><input class="w-97" type="text" value="<%=end.getTipoDaResidencia().getTipo()%>"></td>
-	        			<td><input class="w-97" type="text" value="<%=end.getLogradouro() %>"></td>
-	        			<td><input class="w-97" type="text" value="<%=end.getNumeroResidencia() %>"></td>
-	        			<td><input class="w-97" type="text" value="<%=end.getCep() %>"></td>
-	        			<td><input class="w-97" type="text" value="<%=end.getBairro().getNomeBairro() %>"></td>
-	        			<td><input class="w-97" type="text" value="<%=end.getBairro().getCidade().getNomeCidade() %>"></td>
-	        			<td><input class="w-97" type="text" value="<%=end.getBairro().getCidade().getEstado().getNomeEstado() %>"></td>
-	        			<td><input class="w-97" type="text" value="<%=end.getBairro().getCidade().getEstado().getPais().getNomePais() %>"></td>
-	        			<td><a href="alterarDados?acao=preAlteracao&id=<%=end.getId() %>"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
-        		  		<td><a href="#"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>    
-        			</tr>
+	        		  	<td><input class="w-97" value="<%=end.getTipoDaResidencia().getTipo()%>"></td>
+	        			<td><input class="w-97" value="<%=end.getLogradouro() %>"></td>
+	        			<td><input class="w-97" value="<%=end.getNumeroResidencia()%>"></td>
+	        			<td><input class="w-97" value="<%=end.getCep() %>"></td>
+	        			<td><input class="w-97" value="<%=end.getBairro().getNomeBairro() %>"></td>
+	        			<td><input class="w-97" value="<%=end.getBairro().getCidade().getNomeCidade() %>"></td>
+	        			<td><input class="w-97" value="<%=end.getBairro().getCidade().getEstado().getNomeEstado() %>"></td>
+	        			<td><input class="w-97" value="<%=end.getBairro().getCidade().getEstado().getPais().getNomePais() %>"></td>
+	        			<td><a href="alterarDados?OPERACAO=CONSULTAR&tipo=endereco&id=<%=end.getId() %>"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
+        		  		<td><a href="excluirDados?OPERACAO=APAGAR&tipo=endereco&id=<%=end.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>   
         			  
         			<%  }
         		  } else if (requisicao.equals("cartao_credito")) { %>
@@ -191,8 +192,8 @@
 	        		  	<td><%=cart.getNomeNoCartao()%></td>
 	        		  	<td><%=cart.getNumeroCartao()%></td>
 	        		  	<td><%=cart.getCodigoSegurancao()%></td>
-		        		<td><a href="#"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
-		        		<td><a href="#"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>        			</tr>
+		        		<td><a href="alterarDados?OPERACAO=CONSULTAR&tipo=cartao&id=<%=cart.getId() %>"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
+						<td><a href="excluirDados?OPERACAO=APAGAR&tipo=cartao&id=<%=cart.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>           			</tr>
      			
      		  <%
      	 			}
@@ -205,8 +206,8 @@
 	        		  	<td><%=cart.getNomeNoCartao()%></td>
 	        		  	<td><%=cart.getNumeroCartao()%></td>
 	        		  	<td><%=cart.getCodigoSegurancao()%></td>
-		        		<td><a href="#"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
-		        		<td><a href="#"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>        			</tr>
+		        		<td><a href="alterarDados?OPERACAO=CONSULTAR&tipo=cartao&id=<%=cart.getId() %>"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
+						<td><a href="excluirDados?OPERACAO=APAGAR&tipo=cartao&id=<%=cart.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>           			</tr>
      			  
      			<%  }
         		  	 
@@ -219,8 +220,8 @@
         		  <tr>
         			<td><%=usuario.getNomeUsuario() %></td>
         			<td><%=usuario.getSenha() %></td>
-         		  	<td><a href="#"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
-        		  	<td><a href="#"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>   
+		        		<td><a href="alterarDados?OPERACAO=CONSULTAR&tipo=usuario&id=<%=usuario.getId() %>"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
+						<td><a href="excluirDados?OPERACAO=APAGAR&tipo=usuario&id=<%=usuario.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>           			</tr>
         			</tr>
         		  <%
         		  }

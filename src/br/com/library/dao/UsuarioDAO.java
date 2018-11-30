@@ -34,9 +34,9 @@ public class UsuarioDAO extends AbstractDAO {
 				usuario.setNomeUsuario(resultado.getString("login_usuario"));
 				usuario.setSenha(resultado.getString("senha_usuario"));
 				if(sql.equals("SELECT * FROM usuario WHERE id_cliente=?")) {
-					usuario.setId(resultado.getInt("id"));
+					usuario.setId(resultado.getInt("id_cliente"));
 				}
-				usuario.setId(resultado.getInt("id_cliente"));
+				usuario.setId(resultado.getInt("id_usuario"));
 				listaUsuarios.add(usuario);
 				contador++;
 			}
@@ -58,7 +58,9 @@ public class UsuarioDAO extends AbstractDAO {
 			return "SELECT * FROM usuario WHERE login_usuario =? and senha_usuario=?";
 		} else if (consultas.equals("id")) {
 			return "SELECT * FROM usuario WHERE id_cliente=?";
-		} 
+		} else if (consultas.equals("id_usuario")){
+			return  "SELECT * FROM usuario WHERE id_usuario=?";
+		}
 			return null;	
 		
 	}
@@ -70,7 +72,7 @@ public class UsuarioDAO extends AbstractDAO {
 			comando.setString(2, user.getSenha());
 			
 			
-		} else if(consultas.equals("id")) {
+		} else if(consultas.equals("id")|| (consultas.equals("id_usuario"))) {
 			comando.setInt(1, user.getId());
 		}
 		return comando.executeQuery();

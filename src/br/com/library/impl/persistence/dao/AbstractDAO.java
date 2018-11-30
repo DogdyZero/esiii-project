@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import br.com.library.domain.EntidadeDominio;
+import br.com.library.dto.ClienteDTO;
 
 public abstract class AbstractDAO implements IDAO {
 	protected GeradorStringSql objStringSql;
@@ -63,9 +64,11 @@ public abstract class AbstractDAO implements IDAO {
 						comando.setObject(i, atributos.get(entidade));
 						i++;
 					}
-
 				}
-			}		
+			}	
+			if(entidade.getClass().getName().equals(ClienteDTO.class.getName())) {
+				comando.setObject(i, entidade.getId());
+			}
 			comando.execute();
 		 
 			conexao.close();
@@ -80,7 +83,7 @@ public abstract class AbstractDAO implements IDAO {
 		objStringSql = new GeradorStringSql();
 		String sql = objStringSql.stringDelete(entidade);
 		try {
-		
+			conexao = conectarBD();
 			PreparedStatement comando = conexao.prepareStatement(sql);
 			comando.setObject(1, entidade.getId());
 			comando.execute();
@@ -98,8 +101,8 @@ public abstract class AbstractDAO implements IDAO {
 		try {
 			Class.forName("org.postgresql.Driver");
 
-			String url = "jdbc:postgresql://localhost:5432/Supermercado";
-			Connection conexao = DriverManager.getConnection(url, "postgres", "Senha123");	
+			String url = "jdbc:postgresql://localhost:5432/postgres";
+			Connection conexao = DriverManager.getConnection(url, "postgres", "admin");	
 			return conexao;
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();

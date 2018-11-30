@@ -20,6 +20,19 @@ public class CartaoDTO extends EntidadeDominio {
 	private int codigoCartao;
 	@Coluna ("id_cliente")
 	private int idCliente;
+	@Coluna ("id_cartao_credito")
+	private int idCartao;
+	
+	public CartaoDTO() {
+		
+	}
+	public CartaoDTO(CartaoCredito cartao, int id) {
+		this.nomeCartao = cartao.getNomeNoCartao();
+		this.numeroCartao = cartao.getNumeroCartao();
+		this.bandeiraCartao = cartao.getBandeiraCartao().getNomeBandeira();
+		this.codigoCartao = cartao.getCodigoSegurancao();
+		this.idCartao = id;
+	}
 	
 	public List<CartaoDTO> listaRetorno (List<CartaoCredito> listaCartoes, int id){
 		List<CartaoDTO> listaRetorno = new ArrayList<CartaoDTO>();

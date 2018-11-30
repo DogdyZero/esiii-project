@@ -34,4 +34,15 @@ public class ClienteDTO extends EntidadeDominio{
 		this.telefone = cliente.getTelefone().getTelefone();
 		
 	}
+	public ClienteDTO(Cliente cliente, int id) {
+		java.sql.Date dataSql = new java.sql.Date(cliente.getDataNascimento().getTime());
+		this.nome = cliente.getNome();
+		this.cpf = cliente.getCpf();
+		this.dataNascimento = dataSql;
+		this.genero = cliente.getGenero().getSexo();
+		this.email = cliente.getEmail().getEnderecoEmail();
+		this.telefone = cliente.getTelefone().getTelefone();
+		this.id = id;
+		
+	}
 }

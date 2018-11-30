@@ -50,7 +50,7 @@ public class ClienteDAO extends AbstractDAO{
 				cliente.setGenero(genero);
 				cliente.setTelefone(telefone);
 				cliente.setEmail(email);
-				
+				cliente.setId(resultado.getInt("id_cliente"));
 				listaClientes.add(cliente);
 				contador++;
 			}

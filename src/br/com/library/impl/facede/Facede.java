@@ -15,7 +15,10 @@ import br.com.library.domain.Endereco;
 import br.com.library.domain.EntidadeDominio;
 import br.com.library.domain.Result;
 import br.com.library.domain.Usuario;
+import br.com.library.dto.CartaoDTO;
+import br.com.library.dto.ClienteDTO;
 import br.com.library.dto.EnderecoDTO;
+import br.com.library.dto.UsuarioDTO;
 import br.com.library.impl.persistence.dao.IDAO;
 import br.com.library.impl.strategy.IStrategy;
 import br.com.library.impl.strategy.ValidarCliente;
@@ -64,22 +67,36 @@ public class Facede implements IFacede{
 		Map<String,List<IStrategy>> rnsCartao = new HashMap<String,List<IStrategy>>();
 		rnsCartao.put("CONSULTAR",rnConsultarCartao);
 	
-	
+		List<IStrategy> rnAlterarCliente = new ArrayList<IStrategy>();
+		rnsCliente.put("ALTERAR",rnAlterarCliente);
+		
 		List<IStrategy> rnAlterarEndereco = new ArrayList<IStrategy>();
 		rnsEndereco.put("ALTERAR",rnAlterarEndereco);
 		
+		List<IStrategy> rnAlterarCartao = new ArrayList<IStrategy>();
+		rnsCartao.put("ALTERAR",rnAlterarCartao);
+		
+		List<IStrategy> rnAlterarUsuario = new ArrayList<IStrategy>();
+		rnsUsuario.put("ALTERAR",rnAlterarUsuario);
 				
 		rns.put(Cliente.class.getName(),rnsCliente);
+		rns.put(ClienteDTO.class.getName(), rnsCliente);
+		rns.put(UsuarioDTO.class.getName(), rnsUsuario);
 		rns.put(Usuario.class.getName(),rnsUsuario);
 		rns.put(Endereco.class.getName(),rnsEndereco);
 		rns.put(EnderecoDTO.class.getName(),rnsEndereco);
 		rns.put(CartaoCredito.class.getName(), rnsCartao);
-			
+		rns.put(CartaoDTO.class.getName(),rnsCartao);
+		
 		daos.put(Cliente.class.getName(), new ClienteDAO());
+		daos.put(ClienteDTO.class.getName(), new ClienteDAO());
 		daos.put(Usuario.class.getName(), new UsuarioDAO());
+		daos.put(UsuarioDTO.class.getName(), new UsuarioDAO());
 		daos.put(Endereco.class.getName(), new EnderecoDAO());
 		daos.put(EnderecoDTO.class.getName(), new EnderecoDAO());
 		daos.put(CartaoCredito.class.getName(), new CartaoCreditoDAO());
+		daos.put(CartaoDTO.class.getName(), new CartaoCreditoDAO());
+		
 	}
 
 	@Override
@@ -177,8 +194,17 @@ public class Facede implements IFacede{
 
 	@Override
 	public Result apagar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		resultado = new Result();
+		String classe = entidade.getClass().getName();
+		String msg =null;
+		if (msg !=null) {
+			resultado.setMsg(msg);
+		} else {
+			daos.get(classe).apagar(entidade);
+
+		}
+		resultado.addEntidades(entidade);
+		return resultado;
 	}
 	
 }

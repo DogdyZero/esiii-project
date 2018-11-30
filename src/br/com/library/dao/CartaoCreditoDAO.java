@@ -69,14 +69,16 @@ public class CartaoCreditoDAO extends AbstractDAO {
 		String consultas = entidade.getTipoConsulta();
 		if (consultas.equals("id")) {
 			return "SELECT * FROM cartao_credito WHERE id_cliente=?";
-		} 
+		} else if(consultas.equals("id_cartao")) {
+			return "SELECT * FROM cartao_credito WHERE id_cartao_credito=?";
+		}
 			return null;	
 		
 	}
 	private ResultSet preparar(CartaoCredito cc, String sql) throws SQLException {
 		String consultas = cc.getTipoConsulta();
 		PreparedStatement comando = conexao.prepareStatement(sql);
-		if(consultas.equals("id")) {
+		if(consultas.equals("id")|| consultas.equals("id_cartao")) {
 			comando.setInt(1, cc.getId());
 		}
 		return comando.executeQuery();
