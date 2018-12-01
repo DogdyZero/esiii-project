@@ -21,21 +21,47 @@ import br.com.library.dto.EnderecoDTO;
 import br.com.library.dto.UsuarioDTO;
 import br.com.library.impl.persistence.dao.IDAO;
 import br.com.library.impl.strategy.IStrategy;
+import br.com.library.impl.strategy.ValidarCep;
 import br.com.library.impl.strategy.ValidarCliente;
+import br.com.library.impl.strategy.ValidarCodigoSeguranca;
+import br.com.library.impl.strategy.ValidarCpf;
+import br.com.library.impl.strategy.ValidarDadosCliente;
+import br.com.library.impl.strategy.ValidarDataNascimento;
+import br.com.library.impl.strategy.ValidarEmail;
+import br.com.library.impl.strategy.ValidarEndereco;
+import br.com.library.impl.strategy.ValidarNome;
+import br.com.library.impl.strategy.ValidarNumeroCartao;
+import br.com.library.impl.strategy.ValidarNumeroResidencia;
+import br.com.library.impl.strategy.ValidarSenha;
+import br.com.library.impl.strategy.ValidarTelefone;
 
 
 public class Facede implements IFacede{
 	private Map<String,Map<String,List<IStrategy>>> rns;
 	private Map<String,IDAO> daos;
 	private Result resultado;
+	StringBuilder sb;
 	public Facede(){
 		rns = new HashMap<String,Map<String,List<IStrategy>>>();
 		daos = new HashMap<String,IDAO>();
+		sb = new StringBuilder();
 		
 		/*
-		 * Strategy
+		 * Strategies
 		 */
 		ValidarCliente vlForm = new ValidarCliente();
+		ValidarDadosCliente vCliente = new ValidarDadosCliente();
+		ValidarCpf vCpf = new ValidarCpf();
+		ValidarEmail vEmail = new ValidarEmail();
+		ValidarSenha vSenha = new ValidarSenha();
+		ValidarTelefone vTelefone = new ValidarTelefone();
+		ValidarEndereco vEndereco = new ValidarEndereco();
+		ValidarCep vCep = new ValidarCep();
+		ValidarCodigoSeguranca vCodigoSeguranca = new ValidarCodigoSeguranca();
+		ValidarNumeroCartao vNumeroCartao = new ValidarNumeroCartao();
+		ValidarDataNascimento vDataNas = new ValidarDataNascimento();
+		ValidarNumeroResidencia vNumRes = new ValidarNumeroResidencia();
+		ValidarNome vNome = new ValidarNome();
 		
 		
 		/* 
@@ -44,6 +70,18 @@ public class Facede implements IFacede{
 		List<IStrategy> rnSalvarCliente = new ArrayList<IStrategy>();
 		
 		rnSalvarCliente.add(vlForm);
+		rnSalvarCliente.add(vCliente);
+		rnSalvarCliente.add(vCpf);
+		rnSalvarCliente.add(vEmail);
+		rnSalvarCliente.add(vSenha);
+		rnSalvarCliente.add(vTelefone);
+		rnSalvarCliente.add(vEndereco);
+		rnSalvarCliente.add(vCep);
+		rnSalvarCliente.add(vNumeroCartao);
+		rnSalvarCliente.add(vCodigoSeguranca);
+		rnSalvarCliente.add(vDataNas);
+		rnSalvarCliente.add(vNumRes);
+		rnSalvarCliente.add(vNome);
 		
 		Map<String,List<IStrategy>> rnsCliente = new HashMap<String,List<IStrategy>>();
 		rnsCliente.put("SALVAR", rnSalvarCliente);
@@ -68,9 +106,17 @@ public class Facede implements IFacede{
 		rnsCartao.put("CONSULTAR",rnConsultarCartao);
 	
 		List<IStrategy> rnAlterarCliente = new ArrayList<IStrategy>();
+		rnAlterarCliente.add(vlForm);
+		rnAlterarCliente.add(vCpf);
+		rnAlterarCliente.add(vTelefone);
+		rnAlterarCliente.add(vDataNas);
+		rnAlterarCliente.add(vNome);
+		
 		rnsCliente.put("ALTERAR",rnAlterarCliente);
 		
 		List<IStrategy> rnAlterarEndereco = new ArrayList<IStrategy>();
+		rnAlterarEndereco.add(vEndereco);
+		rnAlterarEndereco.add(vCep);
 		rnsEndereco.put("ALTERAR",rnAlterarEndereco);
 		
 		List<IStrategy> rnAlterarCartao = new ArrayList<IStrategy>();
@@ -101,22 +147,24 @@ public class Facede implements IFacede{
 
 	@Override
 	public Result salvar(EntidadeDominio entidade) {
+		sb.setLength(0);
 		resultado = new Result();
 		String classe = entidade.getClass().getName();
 		
 		Map<String,List<IStrategy>> rn = rns.get(classe);
 		
-		String msg = null;
-		
 		List<IStrategy> regras = rn.get("SALVAR");
 		if(regras!=null) {
 			for (IStrategy strategies :regras) {
-				msg= strategies.processar(entidade);
+				String msg= strategies.processar(entidade);
+				if (msg!=null) {
+					sb.append(msg + "\n");
+				}
 			}
 		}
 
-		if (msg !=null) {
-			resultado.setMsg(msg);
+		if (sb.length() !=0) {
+			resultado.setMsg(sb.toString());
 		} else {
 			daos.get(classe).salvar(entidade);
 
@@ -128,24 +176,27 @@ public class Facede implements IFacede{
 
 	@Override
 	public Result alterar(EntidadeDominio entidade) {
+		sb.setLength(0);
 		resultado = new Result();
 		String classe = entidade.getClass().getName();
 		
 		Map<String,List<IStrategy>> rn = rns.get(classe);
 		
-		String msg = null;
-		
+				
 		if(rn.get("ALTERAR")!=null) {
 			List<IStrategy> regras = rn.get("ALTERAR");
 				
 			for (IStrategy strategies :regras) {
-				msg= strategies.processar(entidade);
+				String msg= strategies.processar(entidade);
+				if (msg!=null) {
+					sb.append(msg);
+				}
 			}
 		}	
 		
 		
-		if (msg !=null) {
-			resultado.setMsg(msg);
+		if (sb.length() !=0) {
+			resultado.setMsg(sb.toString());
 		} else {
 			daos.get(classe).alterar(entidade);
 
@@ -157,24 +208,27 @@ public class Facede implements IFacede{
 
 	@Override
 	public Result consultar(EntidadeDominio entidade) {
+		sb.setLength(0);
 		resultado = new Result();
 		String classe = entidade.getClass().getName();
 		
 		Map<String,List<IStrategy>> rn = rns.get(classe);
 		
-		String msg = null;
 		
 		if(rn.get("CONSULTAR")!=null) {
 			List<IStrategy> regras = rn.get("CONSULTAR");
 				
 			for (IStrategy strategies :regras) {
-				msg= strategies.processar(entidade);
+				String msg= strategies.processar(entidade);
+				if (msg!=null) {
+					sb.append(msg);
+				}
 			}
 		}	
 		
 		
-		if (msg !=null) {
-			resultado.setMsg(msg);
+		if (sb.length() !=0) {
+			resultado.setMsg(sb.toString());
 		} else {
 			List<EntidadeDominio> lista= daos.get(classe).consultar(entidade);
 			if (lista == null) {
@@ -195,9 +249,9 @@ public class Facede implements IFacede{
 	public Result apagar(EntidadeDominio entidade) {
 		resultado = new Result();
 		String classe = entidade.getClass().getName();
-		String msg =null;
-		if (msg !=null) {
-			resultado.setMsg(msg);
+
+		if (sb !=null) {
+			resultado.setMsg(sb.toString());
 		} else {
 			daos.get(classe).apagar(entidade);
 

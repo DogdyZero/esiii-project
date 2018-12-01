@@ -1,6 +1,6 @@
 CREATE TABLE public.cartao_credito
 (
-  id_cartao_credito integer NOT NULL DEFAULT nextval('cartao_credito_id_cartao_credito_seq'::regclass),
+  id_cartao_credito integer NOT NULL ,
   bandeira character varying(30),
   nome_cartao character varying(30),
   numero_cartao character varying(30),
@@ -11,7 +11,7 @@ CREATE TABLE public.cartao_credito
 
 CREATE TABLE public.cliente
 (
-  id_cliente integer NOT NULL DEFAULT nextval('cliente_id_cliente_seq'::regclass),
+  id_cliente integer NOT NULL,
   nome character varying(50),
   cpf character varying(20),
   data_nascimento date,
@@ -22,7 +22,7 @@ CREATE TABLE public.cliente
 )
 CREATE TABLE public.endereco
 (
-  id_endereco integer NOT NULL DEFAULT nextval('endereco_id_endereco_seq'::regclass),
+  id_endereco integer NOT NULL,
   logradouro character varying(50),
   numero numeric(8,0),
   cep character varying(15),
@@ -36,9 +36,19 @@ CREATE TABLE public.endereco
 )
 CREATE TABLE public.usuario
 (
-  id_usuario integer NOT NULL DEFAULT nextval('usuario_id_usuario_seq'::regclass),
+  id_usuario integer NOT NULL,
   login_usuario character varying(30),
   senha_usuario character varying(30),
   id_cliente numeric(8,0),
   CONSTRAINT usuario_pkey PRIMARY KEY (id_usuario)
 )
+CREATE SEQUENCE cartao_credito_id_cartao_credito_seq;
+CREATE SEQUENCE usuario_id_usuario_seq;
+CREATE SEQUENCE endereco_id_endereco_seq;
+CREATE SEQUENCE cliente_id_cliente_seq;
+
+ALTER TABLE cartao_credito ALTER COLUMN id_cartao_credito SET DEFAULT NEXTVAL('cartao_credito_id_cartao_credito_seq'::regclass);
+ALTER TABLE cliente ALTER COLUMN id_cliente SET DEFAULT NEXTVAL('cliente_id_cliente_seq'::regclass);
+ALTER TABLE endereco ALTER COLUMN id_endereco SET DEFAULT NEXTVAL('endereco_id_endereco_seq'::regclass);
+ALTER TABLE usuario ALTER COLUMN id_usuario SET DEFAULT NEXTVAL('usuario_id_usuario_seq'::regclass);
+
