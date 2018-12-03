@@ -1,6 +1,7 @@
 package br.com.library.impl.vh;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -152,9 +153,17 @@ public class PrepararUpdateVH implements IViewHelper {
 
 	@Override
 	public void setView(Result resultado, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		PrintWriter out = response.getWriter();
 		if(request.getParameter("OPERACAO").equals("ALTERAR")) {
-			response.sendRedirect(request.getContextPath() + "/sucesso.html");
+			if(resultado.getMsg()==null) {
+				response.sendRedirect(request.getContextPath() + "/sucesso.html");
+			} else {
+				//response.sendRedirect(request.getContextPath() + "/erro.html");
+				out.printf("<p>"+ resultado.getMsg() + "</p>");
+
+			}
 			return;
+				
 		}
 		if(resultado.getMsg()== null) {
 			if(resultado.getEntidades().size()==1) {

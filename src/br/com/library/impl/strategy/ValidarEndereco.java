@@ -65,8 +65,6 @@ public class ValidarEndereco extends AbstractValidador {
 			}
 		}
 		
-		
-		
 		return verificaMsg();
 	}
 

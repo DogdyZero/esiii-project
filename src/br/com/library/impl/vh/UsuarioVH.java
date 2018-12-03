@@ -46,7 +46,7 @@ public class UsuarioVH implements IViewHelper {
 			//response.sendRedirect(request.getContextPath() + "/consulta.jsp");
 			//out.println("<h1>seja bem vindo</h1>");
 		} else {
-			out.println("<h1>"+ resultado.getMsg() + "</h1>");
+			out.printf("<p>"+ resultado.getMsg() + "</p>");
 
 		}
 	}

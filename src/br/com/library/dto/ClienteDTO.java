@@ -45,4 +45,51 @@ public class ClienteDTO extends EntidadeDominio{
 		this.id = id;
 		
 	}
+
+	public String getNome() {
+		return nome;
+	}
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public java.sql.Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(java.sql.Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 }

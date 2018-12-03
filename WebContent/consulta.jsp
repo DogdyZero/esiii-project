@@ -189,7 +189,7 @@
 	        		  	<td><%=cart.getNumeroCartao()%></td>
 	        		  	<td><%=cart.getCodigoSegurancao()%></td>
 		        		<td><a href="alterarDados?OPERACAO=CONSULTAR&tipo=cartao&id=<%=cart.getId() %>"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
-						<td><a href="excluirDados?OPERACAO=APAGAR&tipo=cartao&id=<%=cart.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>           			</tr>
+						<td><a href="excluirDados?OPERACAO=APAGAR&tipo=cartao&id=<%=cart.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>
      			
      		  <%
      	 			}
@@ -203,7 +203,7 @@
 	        		  	<td><%=cart.getNumeroCartao()%></td>
 	        		  	<td><%=cart.getCodigoSegurancao()%></td>
 		        		<td><a href="alterarDados?OPERACAO=CONSULTAR&tipo=cartao&id=<%=cart.getId() %>"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
-						<td><a href="excluirDados?OPERACAO=APAGAR&tipo=cartao&id=<%=cart.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>           			</tr>
+						<td><a href="excluirDados?OPERACAO=APAGAR&tipo=cartao&id=<%=cart.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td> 
      			  
      			<%  }
         		  	 
@@ -214,10 +214,10 @@
         		  	<th>Senha</th>
         		  </tr>
         		  <tr>
-        			<td class="w-5" ><%=usuario.getNomeUsuario() %></td>
-        			<td class="w-5" ><%=usuario.getSenha() %></td>
+        			<td> <%=usuario.getNomeUsuario() %></td>
+        			<td><%=usuario.getSenha() %></td>
 		        		<td><a href="alterarDados?OPERACAO=CONSULTAR&tipo=usuario&id=<%=usuario.getId() %>"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
-						<td><a href="excluirDados?OPERACAO=APAGAR&tipo=usuario&id=<%=usuario.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td>           			</tr>
+						<td><a href="excluirDados?OPERACAO=APAGAR&tipo=usuario&id=<%=usuario.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td> 
         			</tr>
         		  <%
         		  }

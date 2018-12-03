@@ -111,7 +111,7 @@ public class Facede implements IFacede{
 		rnAlterarCliente.add(vTelefone);
 		rnAlterarCliente.add(vDataNas);
 		rnAlterarCliente.add(vNome);
-		
+		rnAlterarCliente.add(vEmail);
 		rnsCliente.put("ALTERAR",rnAlterarCliente);
 		
 		List<IStrategy> rnAlterarEndereco = new ArrayList<IStrategy>();
@@ -120,6 +120,8 @@ public class Facede implements IFacede{
 		rnsEndereco.put("ALTERAR",rnAlterarEndereco);
 		
 		List<IStrategy> rnAlterarCartao = new ArrayList<IStrategy>();
+		rnAlterarCartao.add(vNumeroCartao);
+		rnAlterarCartao.add(vCodigoSeguranca);
 		rnsCartao.put("ALTERAR",rnAlterarCartao);
 		
 		List<IStrategy> rnAlterarUsuario = new ArrayList<IStrategy>();

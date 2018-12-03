@@ -48,5 +48,43 @@ public class CartaoDTO extends EntidadeDominio {
 		
 		return listaRetorno;
 	}
+	public String getNomeCartao() {
+		return nomeCartao;
+	}
+	public void setNomeCartao(String nomeCartao) {
+		this.nomeCartao = nomeCartao;
+	}
+	public String getNumeroCartao() {
+		return numeroCartao;
+	}
+	public void setNumeroCartao(String numeroCartao) {
+		this.numeroCartao = numeroCartao;
+	}
+	public String getBandeiraCartao() {
+		return bandeiraCartao;
+	}
+	public void setBandeiraCartao(String bandeiraCartao) {
+		this.bandeiraCartao = bandeiraCartao;
+	}
+	public int getCodigoCartao() {
+		return codigoCartao;
+	}
+	public void setCodigoCartao(int codigoCartao) {
+		this.codigoCartao = codigoCartao;
+	}
+	public int getIdCliente() {
+		return idCliente;
+	}
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
+	public int getIdCartao() {
+		return idCartao;
+	}
+	public void setIdCartao(int idCartao) {
+		this.idCartao = idCartao;
+	}
+	
+	
 	
 }
