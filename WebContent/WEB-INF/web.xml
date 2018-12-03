@@ -35,4 +35,8 @@
       <servlet-name>control</servlet-name>
       <url-pattern>/excluirDados</url-pattern>
   </servlet-mapping>
+  
+  <session-config>
+	<session-timeout> 3600 </session-timeout>
+</session-config>
 </web-app>

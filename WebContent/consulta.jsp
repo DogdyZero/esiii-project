@@ -76,8 +76,9 @@
         		<option value="dados_usuario">Dados de Acesso</option>
         	
         	</select><br>
-        	  <% if(request.getAttribute("idCliente")!=null){
-        		  Usuario usuario = (Usuario) request.getAttribute("idCliente");
+        	  <% Usuario usuario = (Usuario) session.getAttribute("idCliente");
+        	  if(usuario!=null){
+        		 // Usuario usuario = (Usuario) request.getAttribute("idCliente");
         	   %>
         	   	<label>id cliente
         			<input type="text" value="<%=usuario.getId()%>" name="id"/>
@@ -208,7 +209,7 @@
      			<%  }
         		  	 
         		  } else if ((requisicao.equals("dados_usuario"))){
-        			  Usuario usuario = (Usuario) request.getAttribute("resultado");%>
+        			  Usuario user= (Usuario) request.getAttribute("resultado");%>
         			<tr>
         		  	<th>Login</th>
         		  	<th>Senha</th>
@@ -216,8 +217,8 @@
         		  <tr>
         			<td> <%=usuario.getNomeUsuario() %></td>
         			<td><%=usuario.getSenha() %></td>
-		        		<td><a href="alterarDados?OPERACAO=CONSULTAR&tipo=usuario&id=<%=usuario.getId() %>"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
-						<td><a href="excluirDados?OPERACAO=APAGAR&tipo=usuario&id=<%=usuario.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td> 
+		        		<td><a href="alterarDados?OPERACAO=CONSULTAR&tipo=usuario&id=<%=user.getId() %>"><img class="w-30px" src="imagens/pen-512.png"/></a></td>   
+						<td><a href="excluirDados?OPERACAO=APAGAR&tipo=usuario&id=<%=user.getId() %>"><img class="w-30px" src="imagens/Eraser-icon.png"/></a></td> 
         			</tr>
         		  <%
         		  }

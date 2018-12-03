@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.library.domain.Cliente;
 import br.com.library.domain.EntidadeDominio;
@@ -36,6 +38,9 @@ public class UsuarioVH implements IViewHelper {
 		}
 		if(resultado.getMsg() == null) {
 			EntidadeDominio entidade =  resultado.getEntidades().get(0);
+			          
+			HttpSession secao = request.getSession(true);
+			secao.setAttribute("idCliente", entidade );
 			request.setAttribute("idCliente", entidade );
 			try {
 				request.getRequestDispatcher("/consulta.jsp").forward(request, response);
